@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CALMA — Paso a paso</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#f7e9f5,#e8f3ed);color:#33263d;min-height:100vh;padding:20px}
+.wrap{max-width:760px;margin:auto}
+.card{background:#fffdfb;border-radius:30px;padding:30px;box-shadow:0 15px 45px #0001;text-align:center}
+.logo{font-size:44px;font-weight:800;color:#68458a;letter-spacing:3px}
+.subtitle{color:#777;line-height:1.5}
+.progress{height:9px;background:#eee;border-radius:10px;margin:24px 0 10px;overflow:hidden}
+.bar{height:100%;width:0;background:#8c6aa8;transition:.3s}
+.step{font-size:13px;color:#777;margin-bottom:20px}
+.tag{display:inline-block;padding:8px 15px;border-radius:20px;background:#efe3f7;color:#68458a;font-weight:700;font-size:13px}
+.question{font-size:29px;line-height:1.3;margin:25px 0 15px;color:#473054;font-weight:700}
+.explain{background:#f7f1fa;border-radius:20px;padding:18px;line-height:1.55;text-align:left}
+.answerbox{margin-top:15px;background:#eef7f1;border-radius:18px;padding:18px;text-align:left;line-height:1.55;display:none}
+textarea{width:100%;min-height:90px;border:1px solid #ddd;border-radius:15px;padding:12px;font:inherit;margin-top:14px;resize:vertical}
+button{border:0;border-radius:18px;padding:14px 20px;background:#68458a;color:white;font-size:15px;font-weight:700;cursor:pointer;margin:8px 4px}
+button.alt{background:#ded1e7;color:#473054}
+button.green{background:#658b73}
+.hidden{display:none}
+.activity{font-size:27px;font-weight:700;color:#473054;line-height:1.3;margin:25px 0}
+.answerline{font-weight:700}
+.note{font-size:13px;color:#888;line-height:1.5;margin-top:18px}
+
+/* ===== Portada CALMA - Prueba piloto ===== */
+.calma-portada {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(221, 205, 235, .55), transparent 32%),
+    radial-gradient(circle at 85% 80%, rgba(247, 214, 205, .55), transparent 34%),
+    linear-gradient(135deg, #f7f1f8 0%, #fff9f5 100%);
+  transition: opacity .45s ease, visibility .45s ease;
+}
+.calma-portada.oculta {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.calma-portada-card {
+  width: min(650px, 100%);
+  box-sizing: border-box;
+  padding: 42px 30px 36px;
+  text-align: center;
+  background: rgba(255,255,255,.90);
+  border: 1px solid rgba(160,140,170,.15);
+  border-radius: 32px;
+  box-shadow: 0 20px 55px rgba(75,55,85,.12);
+}
+.calma-portada-icon {
+  font-size: 44px;
+  margin-bottom: 8px;
+}
+.calma-portada-title {
+  margin: 0;
+  font-size: clamp(42px, 9vw, 64px);
+  letter-spacing: .14em;
+  font-weight: 800;
+}
+.calma-portada-frase {
+  letter-spacing: .01em;
+  max-width: 520px;
+  margin: 16px auto 24px;
+  font-size: clamp(18px, 3vw, 23px);
+  line-height: 1.5;
+  font-style: italic;
+}
+.calma-portada-piloto {
+  margin: 0 auto;
+  max-width: 500px;
+  line-height: 1.6;
+  font-size: 16px;
+}
+.calma-portada-autora {
+  margin: 24px 0 22px;
+  font-weight: 700;
+  font-size: 17px;
+}
+.calma-portada-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 27px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  background: #8f7898;
+  color: white;
+  box-shadow: 0 8px 20px rgba(80,60,90,.16);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.calma-portada-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 11px 25px rgba(80,60,90,.22);
+}
+.calma-portada-nota {
+  margin-top: 18px;
+  font-size: 12px;
+  opacity: .62;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ===== Portada CALMA - Prueba piloto ===== -->
+<section class="calma-portada" id="calmaPortada" aria-label="Presentación de CALMA">
+  <div class="calma-portada-card">
+    <div class="calma-portada-icon">🌿</div>
+    <h1 class="calma-portada-title">CALMA</h1>
+    <p class="calma-portada-frase"><strong>“Un mal momento no es una mala vida.”</strong></p>
+    <p class="calma-portada-piloto">
+      No todo lo que piensas en un momento difícil es un hecho.<br>
+      <strong>Detente. Cuestiona. Respira.</strong><br>
+      Date la oportunidad de ver las cosas desde otro lugar.
+    </p>
+    <p class="calma-portada-autora">
+      No tienes que resolver toda tu vida hoy.<br>
+      Solo necesitas atravesar este momento.<br><br>
+      <span style="font-weight:700;">Gladys Shelsea Escoto Castellanos</span><br>
+      <span style="font-size:13px;opacity:.65;">Prueba piloto · Proyecto CALMA</span>
+    </p>
+    <button class="calma-portada-btn" type="button" onclick="iniciarCalma()">
+      COMENZAR CALMA →
+    </button>
+    <div class="calma-portada-nota">🌿 Este momento pasará. Tú sigues aquí.</div>
+  </div>
+</section>
+
+<div class="wrap">
+<main class="card">
+<div class="logo">CALMA</div>
+<div class="subtitle">Vamos paso a paso. Primero entiende lo que ocurre; después deja que tu mente descanse.</div>
+<div class="progress"><div id="bar" class="bar"></div></div>
+<div id="step" class="step"></div>
+<div id="content"></div>
+</main>
+</div>
+
+<script>
+const cognitive = [
+{q:"¿Qué está ocurriendo realmente ahora mismo?",e:"Describe solamente los hechos que puedes observar. Evita añadir interpretaciones, predicciones o suposiciones.",},
+{q:"¿Qué evidencia REAL tienes de ese pensamiento?",e:"Busca pruebas concretas y observables. No cuentes como evidencia lo que imaginas que podría pasar, lo que temes que pase o lo que otra persona podría pensar.",},
+{q:"¿Qué evidencia REAL existe en contra de ese pensamiento?",e:"Busca hechos concretos que contradigan o hagan menos segura esa interpretación.",},
+{q:"¿Hay algo que estés suponiendo sin tener pruebas?",e:"Una posibilidad no es una certeza. Pregúntate: ¿lo sé realmente o solamente estoy imaginándolo?",},
+{q:"¿Qué otra explicación, basada en hechos, podría existir?",e:"No necesitas pensar positivo. Busca una explicación alternativa que también sea razonable y tenga apoyo en lo que realmente sabes.",},
+{q:"¿Qué parte de esta situación sí está bajo tu control?",e:"Puede ser tu siguiente decisión, lo que dices, a quién pides ayuda o cómo decides afrontar los próximos minutos.",},
+{q:"Si esto ocurriera, ¿significaría necesariamente que no podrías manejarlo?",e:"Piensa en tus recursos, experiencias anteriores y personas a las que podrías acudir. Una situación difícil no significa automáticamente que seas incapaz de afrontarla.",},
+{q:"¿Has afrontado antes algo que en su momento parecía difícil?",e:"Recuerda un hecho real de tu propia historia en el que lograste continuar, resolver o pedir ayuda.",},
+{q:"¿Qué pensamiento sería más equilibrado y fiel a los hechos?",e:"No se trata de decirte que todo estará perfecto. Se trata de reemplazar una certeza negativa por una interpretación más realista.",}
+];
+
+const activities = [
+["🫁", "Haz una respiración lenta y cómoda durante unos momentos.","No necesitas forzar la respiración. Si te resulta incómoda, respira normalmente."],
+["👀", "Mira a tu alrededor y encuentra 5 cosas de colores diferentes.","Nómbralas mentalmente. Después busca 4 cosas que puedas tocar."],
+["✋", "Toca un objeto cercano y concéntrate en su textura.","Pregúntate solamente: ¿es suave, áspero, frío, tibio, duro o liviano?"],
+["🎨", "Dibuja durante 60 segundos sin preocuparte por hacerlo bonito.","Puede ser una casa, un animal, una cara o cualquier cosa absurda."],
+["🧩", "Resuelve una adivinanza.","Un avión se estrella en la frontera. ¿Dónde entierran a los sobrevivientes?"],
+["😂", "Busca una sonrisa: ¿qué le dijo un techo a otro techo?","Respuesta: “Techo de menos”. 😄"],
+["🔢", "Reto rápido: ¿cuánto es 17 + 28?","Respuesta: 45."],
+["🔢", "Reto rápido: ¿cuánto es 7 × 8?","Respuesta: 56."],
+["🧠", "Reto mental: nombra 5 animales en menos de 10 segundos.","No importa cuáles sean. Solo cambia el foco de atención y juega con tu mente."],
+["🎭", "Inventa un nombre absurdo para un restaurante.","Ejemplo: “La Vaca Voladora”. Ahora intenta inventar uno más extraño."],
+["🌿", "Estira suavemente los hombros y cambia de postura.","Hazlo solo si resulta cómodo. Observa cómo se siente tu cuerpo después."],
+["🎵", "Pon una canción que te guste y escucha solamente la música durante un minuto.","No tienes que analizar nada. Solo escucha."],
+["✏️", "Escribe una frase amable para ti y léela lentamente.","Puede ser: “Puedo tomarme este momento con calma.”"],
+["🧮", "Si tienes 30 y gastas 12, ¿cuánto queda?","Respuesta: 18."],
+["🧩", "¿Qué tiene ciudades, pero no casas; ríos, pero no agua; montañas, pero no árboles?","Respuesta: un mapa. 🗺️"],
+["😄", "¿Qué hace una abeja en el gimnasio?","Respuesta: ¡Zum-ba! 🐝"],
+];
+
+let stage=0, qi=0, ai=0;
+const totalC=cognitive.length;
+const totalA=activities.length;
+
+function renderCognitive(){
+ const item=cognitive[qi];
+ document.getElementById("step").textContent=`ETAPA 1 · REFLEXIONAR  •  ${qi+1} de ${totalC}`;
+ document.getElementById("bar").style.width=((qi+1)/(totalC+1)*60)+"%";
+ document.getElementById("content").innerHTML=`
+ <div class="tag">🧠 PRIMERO: ENTIENDE</div>
+ <div class="question">${item.q}</div>
+ <div class="explain">${item.e}</div>
+ <textarea id="thought" placeholder="Si quieres, escribe aquí lo que descubres..."></textarea>
+ <button onclick="nextCognitive()">Continuar →</button>
+ <div class="note">No necesitas responder perfectamente. El objetivo es mirar la situación con más claridad.</div>`;
+}
+function nextCognitive(){
+ if(qi<totalC-1){qi++;renderCognitive();}
+ else {stage=1;renderTransition();}
+}
+function renderTransition(){
+ document.getElementById("step").textContent="TRANSICIÓN · AHORA CAMBIAMOS EL FOCO";
+ document.getElementById("bar").style.width="65%";
+ document.getElementById("content").innerHTML=`
+ <div class="tag">🌿 AHORA SUELTA EL PROBLEMA</div>
+ <div class="question">Ya hiciste la parte de reflexionar. Ahora no necesitas seguir analizando.</div>
+ <div class="explain">Durante los próximos minutos vamos a cambiar voluntariamente de actividad. La idea es darle a tu atención otra cosa en la que concentrarse.</div>
+ <button class="green" onclick="startActivities()">✨ Empezar actividades</button>
+ <div class="note">A partir de aquí, CALMA no te pedirá que vuelvas a analizar el pensamiento anterior.</div>`;
+}
+function renderActivity(){
+ const item=activities[ai];
+ document.getElementById("step").textContent=`ETAPA 2 · DISTRAER Y REGULAR  •  ${ai+1} de ${totalA}`;
+ document.getElementById("bar").style.width=(65+(ai+1)/totalA*35)+"%";
+ document.getElementById("content").innerHTML=`
+ <div class="tag">${item[0]} ACTIVIDAD</div>
+ <div class="activity">${item[1]}</div>
+ <div class="answerbox" style="display:block">${item[2]}</div>
+ <button onclick="nextActivity()">✨ Quiero otra</button>
+ <div class="note">No tienes que resolver nada ahora. Solo participa en la actividad.</div>`;
+}
+function startActivities(){stage=2;ai=0;renderActivity();}
+function nextActivity(){ai=(ai+1)%totalA;renderActivity();}
+renderCognitive();
+</script>
+
+<script>
+function iniciarCalma() {
+  const portada = document.getElementById('calmaPortada');
+  if (portada) {
+    portada.classList.add('oculta');
+    setTimeout(() => { portada.style.display = 'none'; }, 500);
+  }
+}
+</script>
+
+</body>
+</html>
